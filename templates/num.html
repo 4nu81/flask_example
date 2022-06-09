@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Num{% endblock %}
+
+{% block content %}
+<h1>Hello, Num!</h1>
+
+<a href="{{ url_for('index') }}">Index</a>
+
+<p>{{num}}</p>
+
+{% endblock %}

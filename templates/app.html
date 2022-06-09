@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}App{% endblock %}
+
+{% block content %}
+<h1>Hello, App!</h1>
+
+<a href="{{ url_for('index') }}">Index</a>
+
+<div class="content">
+{% for zeug in zeuch %}
+<p>{{zeug}}</p>
+{% endfor %}
+</div>
+
+{% endblock %}
