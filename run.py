@@ -1,18 +1,34 @@
+import json
 import os
 
 import click
 from flask import Flask, render_template, request
 from werkzeug.exceptions import abort
 
+from middleware import middleware
+
 app = Flask(__name__)
 
-def before_req_middleware():
+### Basic Middleware Method ##
+app.wsgi_app = middleware(app.wsgi_app)
+
+### injected Middleware functions ###
+def before_req_func():
     print(f"sparked before request procession")
 
-def after_req_middleware(res):
+def after_req_func(res):
     print(f"sparked after request procession")
     print(res.content_type, res.response)
     return res
+
+app.before_request_funcs = {
+    None: [before_req_func]
+}
+app.after_request_funcs = {
+    None: [after_req_func]
+}
+
+### Routes To HTML Views ###
 
 @app.cli.command('hello')
 @click.argument('name')
@@ -34,22 +50,20 @@ def to_app():
     zeuch = ['dies','kommt','aus','einer','liste']
     return render_template('app.html', zeuch=zeuch)
 
-def get_num(num):
-    if num not in range(10):
-        abort(404)
-    return num
-
 @app.route('/<int:num>')
 def num(num):
-    num = get_num(num)
+    if num not in range(10):
+        ### simple 404 example
+        abort(404)
     return render_template('num.html', num=num)
 
-app.before_request_funcs = {
-    None: [before_req_middleware]
-}
-app.after_request_funcs = {
-    None: [after_req_middleware]
-}
+### Routes To Json Views ###
+
+@app.route('/hello/<string:name>')
+def hello_name(name):
+    return json.dumps({"hello": name})
+
+### Import Debugger if needed ###
 
 if os.getenv("PYTHONDEBUGGER") == "True":
     import multiprocessing

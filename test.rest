@@ -1,0 +1,4 @@
+@host=http://localhost
+
+GET {{host}}/hello/Andi
+
