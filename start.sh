@@ -4,7 +4,7 @@ set -xe
 
 cd /app
 
-case "$DEBUGGER" in
+case "$PYTHONDEBUGGER" in
     True) WORKERS=1 THREADS=6 ;; # Single Worker for Debugger
        *) WORKERS=3 THREADS=6 ;;
 esac

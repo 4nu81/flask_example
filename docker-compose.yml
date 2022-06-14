@@ -7,8 +7,11 @@ services:
       dockerfile: Dockerfile
     environment:
       - SECRET=12345
+      - PYTHONUNBUFFERED=TRUE
+      - PYTHONDEBUGGER=True
     ports:
       - 80:8000
+      - 3000:3000
     volumes:
       - .:/app
     restart: always
