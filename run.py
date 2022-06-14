@@ -1,7 +1,7 @@
 import os
 
 import click
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from werkzeug.exceptions import abort
 
 app = Flask(__name__)
@@ -20,9 +20,14 @@ def hello(name):
     res = f"Hello {name}"
     print(res)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('index_form.html')
+
+@app.route('/', methods=['POST'])
+def index_post():
+    values = request.form
+    return render_template('index.html', form_data=values)
 
 @app.route('/app')
 def to_app():

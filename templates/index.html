@@ -7,4 +7,10 @@
 
 <a href="{{ url_for('to_app') }}">App</a>
 
+<ul>
+{% for key,val in form_data.items() %}
+<li>{{key}}:{{val}}</li>
+{% endfor %}
+</ul>
+
 {% endblock %}

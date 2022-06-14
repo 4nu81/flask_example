@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Hello, Index!</h1>
+
+<a href="{{ url_for('to_app') }}">App</a>
+
+<form action="{{ url_for('index_post') }}" method="post">
+    <input type="email" name="email" id="email">
+    <label for="email">E-Mail</label>
+
+    <input type="date" name="date" id="date">
+    <label for="date">Date</label>
+
+    <input type="text" name="text" id="text">
+    <label for="text">Text</label>
+
+    <input type="submit" value="submit">
+
+</form>
+
+{% endblock %}
